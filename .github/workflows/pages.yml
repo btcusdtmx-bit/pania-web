@@ -25,6 +25,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # Republicación del portal PANIA tras activar GitHub Actions
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
