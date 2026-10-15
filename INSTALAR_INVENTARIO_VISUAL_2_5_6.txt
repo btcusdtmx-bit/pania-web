@@ -1,0 +1,23 @@
+PANIA 2.5.6 — INVENTARIO VISUAL
+
+1) Copiar este ZIP a /workspaces/PANIA
+2) Ejecutar:
+   cd /workspaces/PANIA
+   unzip -o PANIA_v2.5.6_INVENTARIO_VISUAL.zip
+   npm run build
+3) Si el build termina correctamente, ejecutar SOLO en Supabase:
+   supabase/migrations/023_seguridad_cierre_produccion.sql
+
+No volver a ejecutar 001–022.
+
+Cambios de Inventario:
+- KPIs visuales.
+- Materia prima / Producto terminado.
+- Necesitas comprar.
+- Existencia negativa presentada como Disponible 0 + Déficit trazable.
+- Detalle lateral por ingrediente.
+- Historial y ajuste controlado plegables.
+- Filtros simplificados.
+- Accesos a Compras.
+
+023 consolida la validación de rol/empresa/sucursal del cierre de Producción manteniendo RLS activo.

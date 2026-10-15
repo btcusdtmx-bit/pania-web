@@ -1,0 +1,9 @@
+PANIA PORTAL PUBLICO V1
+
+1. Aplicar en Supabase SQL Editor: supabase/migrations/020_portal_publico_planes.sql
+2. npm run build
+3. Abrir /inicio (pública) y /login?modo=registro&plan=negocio
+4. Verificar registro, correo y /bienvenida en un entorno de pruebas.
+
+IMPORTANTE: elegir plan solo guarda una preferencia no verificada en metadatos del usuario. NO crea suscripción, NO concede acceso por plan, NO cobra. Requiere integración posterior de pagos y asignación segura del plan al negocio.
+La ruta / sigue siendo el panel privado. La URL pública para campañas será /inicio.

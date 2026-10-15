@@ -1,0 +1,10 @@
+PANIA 2.5.6 — PRODUCCIÓN INTELIGENTE
+
+1) Descomprime el ZIP SOBRE /workspaces/PANIA (los archivos están en la raíz del ZIP).
+2) Ejecuta: npm run build
+3) En Supabase SQL Editor ejecuta SOLO:
+   supabase/migrations/022_produccion_integridad.sql
+4) Ejecuta: npm run dev
+5) Prueba una orden completa: Planear → Revisar ingredientes → Iniciar → Confirmar → Inventario.
+
+IMPORTANTE: no vuelvas a ejecutar migraciones 001–021.
