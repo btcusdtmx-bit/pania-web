@@ -1,0 +1,12 @@
+
+# Variables locales y credenciales
+.env
+.env.*
+!.env.example
+
+# Archivos generados
+node_modules/
+.next/
+.wrangler/
+next-env.d.ts
+*.respaldo
