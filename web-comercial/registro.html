@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registro y acceso | PANIA</title>
+<link rel="stylesheet" href="./portal.css">
+<style>
+body{margin:0;background:#fbf8ef;font-family:system-ui,sans-serif;color:#163b31}
+.acceso{max-width:430px;margin:7vh auto;padding:30px;background:white;border:1px solid #dce8dc;border-radius:20px}
+.acceso h1{font-family:Georgia,serif}
+.acceso label{display:block;margin:18px 0;font-weight:650}
+.acceso input{display:block;width:100%;box-sizing:border-box;margin-top:7px;padding:13px;border:1px solid #b7c8bd;border-radius:10px}
+.acceso button{width:100%;padding:15px;background:#116a52;color:white;border:0;border-radius:10px;font-weight:750;cursor:pointer}
+.acceso button:disabled{opacity:.55}
+.acceso a{color:#116a52}
+#mensaje{line-height:1.5}
+</style>
+</head>
+<body>
+<main class="acceso">
+<a href="./">← Volver a PANIA</a>
+<h1 id="titulo">Crear cuenta PANIA</h1>
+<p id="plan"></p>
+<form id="formulario">
+<label>Correo electrónico<input type="email" name="email" required autocomplete="email"></label>
+<label>Contraseña<input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+<button id="enviar" type="submit">Crear cuenta</button>
+</form>
+<p id="mensaje" role="status" aria-live="polite"></p>
+<p><a href="?modo=login" id="cambiar">Ya tengo cuenta</a></p>
+</main>
+<script type="module">
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
+const supabase=createClient("https://nndtfmdnjevjekusszli.supabase.co","sb_publishable_YYLCt7Xi-2zjr1AGAmbvcg_kxxseQlL");
+const params=new URLSearchParams(location.search);
+const login=params.get('modo')==='login';
+const elegido=params.get('plan')||'basico';
+const plan=['basico','negocio','multi'].includes(elegido)?elegido:'basico';
+const titulo=document.getElementById('titulo');
+const textoPlan=document.getElementById('plan');
+const boton=document.getElementById('enviar');
+const cambiar=document.getElementById('cambiar');
+const mensaje=document.getElementById('mensaje');
+titulo.textContent=login?'Entrar a PANIA':'Crear cuenta PANIA';
+textoPlan.textContent=login?'Accede con tu cuenta':'Plan solicitado: PANIA '+plan;
+boton.textContent=login?'Iniciar sesión':'Crear cuenta';
+cambiar.textContent=login?'Crear una cuenta':'Ya tengo cuenta';
+cambiar.href=login?'?plan='+plan:'?modo=login';
+document.getElementById('formulario').addEventListener('submit',async e=>{
+ e.preventDefault();
+ boton.disabled=true;
+ mensaje.textContent='';
+ const fd=new FormData(e.currentTarget);
+ const email=String(fd.get('email')).trim();
+ const password=String(fd.get('password'));
+ try{
+  if(login){
+   const {error}=await supabase.auth.signInWithPassword({email,password});
+   if(error)throw error;
+   mensaje.textContent='Sesión iniciada. El panel operativo todavía está en preparación para GitHub Pages.';
+  }else{
+   const {data,error}=await supabase.auth.signUp({
+    email,password,
+    options:{
+     data:{plan_interes:plan},
+     emailRedirectTo:new URL('./registro.html?modo=login',location.href).href
+    }
+   });
+   if(error)throw error;
+   mensaje.textContent=data.session
+    ?'Cuenta creada. La activación del plan está pendiente.'
+    :'Revisa tu correo para confirmar tu cuenta. Después podrás iniciar sesión.';
+  }
+ }catch(err){mensaje.textContent=err.message||'No se pudo completar la operación.'}
+ finally{boton.disabled=false}
+});
+</script>
+</body>
+</html>
