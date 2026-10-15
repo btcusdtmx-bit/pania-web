@@ -1,0 +1,7 @@
+PANIA 2.5.7 — COMPRAS INTELIGENTES
+1) Descomprime este ZIP sobre /workspaces/PANIA
+2) Ejecuta npm run build
+3) En Supabase SQL Editor ejecuta SOLO: supabase/migrations/024_compras_inteligentes.sql
+4) Ejecuta npm run dev y prueba /compras
+
+Prueba recomendada: compra pequeña de contado desde una cuenta con saldo; confirma que aumenta inventario y baja Caja/Banco. Después prueba una compra a crédito y un abono.

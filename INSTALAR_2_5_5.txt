@@ -1,0 +1,17 @@
+PANIA 2.5.5 — Intelligence Engine Nativo
+
+1. Sustituye tu proyecto actual por este paquete conservando tu .env.local.
+2. Ejecuta: npm install
+3. Ejecuta: npm run build
+4. Si el build termina correctamente: npm run dev
+5. Entra a Asistente IA y prueba:
+   - ¿Cómo va mi panadería?
+   - ¿Qué productos tienen poco stock?
+   - ¿Qué debería revisar hoy?
+   - ¿Qué debería producir mañana?
+
+IMPORTANTE
+- No ejecutar SQL nuevo. La migración 021 sigue siendo la última requerida.
+- No requiere Flowise ni variables FLOWISE_*.
+- No requiere API de IA externa.
+- El asistente es de solo lectura.
